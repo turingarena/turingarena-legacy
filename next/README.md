@@ -66,3 +66,23 @@ In particular, the API allows producing evaluations without using SEGI (say, in 
 `EvaluationEvent`: a wrapper on the JSON object representing an evaluation event.
 
 Evaluations would probably use some native Rust type for streams of objects.
+
+## Driver
+
+Interface definition language is changed as follows.
+
+* Each function has exactly one call site, and is declared implicitly when it is called.
+* Function arguments must be identifiers, not expressions, and they determine the name and type of the respective parameter.
+This simplifies variable resolution: each variable is resolved the first time its name occurs, as it is, as an argument to a function call.
+* A new construct `let <var> = <expr>;` is added.
+This allows passing the result of expressions as function arguments, overcoming this new limitation.
+Variable resolution does not occur in this case.
+* Named scalar types may be added, since the special syntax to express array types in function declarations is no longer required.
+
+The driver is implemented by generating at compile-time a representation of the interface as a type-safe abstract state machine.
+Namely, there are two types of states, those waiting for the evaluator input, and those waiting for the process output.
+Evaluator input consists of a call to an interface function, or other control events such as returning from a callback or exiting the process.
+When a transition occurs, it may result in the generation of input data to send to the process and/or the result of a function call or the call to a callback.
+
+Type safety is obtained by associating each of the states with a generated type.
+This type has methods that represent only the valid transitions from the state, which consume the current state and return the next.
