@@ -1,5 +1,11 @@
 # TuringArena
 
+### WARNING: this is the legacy version of TuringArena. 
+
+This branch will continue to exist only for historical reasons, since we are in the process of rewriting TuringArena in a completely different way. 
+
+#### All the code in this branch is from now on unsupported, and will never recieve further updates!
+
 [![Join the chat at https://gitter.im/turingarena/turingarena](https://badges.gitter.im/turingarena/turingarena.svg)](https://gitter.im/turingarena/turingarena?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 *Create algorithmic challenges!*
